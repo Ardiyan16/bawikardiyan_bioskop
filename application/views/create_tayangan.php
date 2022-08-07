@@ -5,34 +5,35 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tambah Pemesanan Tiket</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tambah Penayangan</h1>
     <div class="card shadow py-2">
         <div class="card-body">
-            <a href="<?= base_url('Bioskop/tiket') ?>" class="btn btn-success mb-3"> <span class="fa fa-arrow-alt-circle-left"></span> Kembali</a>
+            <a href="<?= base_url('Bioskop/tayangan') ?>" class="btn btn-success mb-3"> <span class="fa fa-arrow-alt-circle-left"></span> Kembali</a>
             <hr>
 
-            <form action="<?= base_url('Bioskop/save_tiket'); ?>" method="POST" enctype="multipart/form-data">
-                <label>Nama Penonton</label>
-                <input name="nama" type="text" placeholder="Nama Penonton" class="form-control">
-                <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
-                <br>
-                <label>Kode Film</label>
-                <input name="kode_film" readonly type="text" placeholder="" class="form-control col-md-4 kode_film"><button type='button' class='btn-sm btn-success' title="cari film" onclick='cari_film()' style='margin-left: 4px; margin-top: 5px; margin-bottom: 5px;'> <i class='ace-icon fa fa-search'></i></button>
-                <?= form_error('kode_film', '<small class="text-danger pl-3">', '</small>'); ?>
+            <form action="<?= base_url('Bioskop/save_tayangan'); ?>" method="POST" enctype="multipart/form-data">
+                <!-- <label>Kode Film</label> -->
+                <input name="kode_film" readonly type="hidden" placeholder="" class="form-control col-md-4 kode_film">
                 <br>
                 <label>Nama Film</label>
                 <input readonly type="text" placeholder="Nama Film" class="form-control nama_film">
+                <button type='button' class='btn-sm btn-success' title="cari film" onclick='cari_film()' style='margin-left: 4px; margin-top: 5px; margin-bottom: 5px;'> <i class='ace-icon fa fa-search'></i></button>
+                <?= form_error('kode_film', '<small class="text-danger pl-3">', '</small>'); ?>
                 <br>
-                <label>Bioskop</label>
+                <label>Pilih Bioskop</label>
                 <select name="kode_bioskop" class="form-control">
                     <?php foreach ($bioskop as $show) { ?>
                         <option value="<?= $show->kd_bioskop ?>"><?= $show->nama_bioskop ?></option>
                     <?php } ?>
                 </select>
                 <br>
-                <label>Tanggal</label>
-                <input name="tanggal" type="date" placeholder="Harga Satuan" class="form-control col-md-4">
-                <?= form_error('tanggal', '<small class="text-danger pl-3">', '</small>'); ?>
+                <label>Tanggal & Waktu</label>
+                <input name="tgl_waktu" type="datetime-local" placeholder="" class="form-control col-md-4">
+                <?= form_error('tgl_waktu', '<small class="text-danger pl-3">', '</small>'); ?>
+                <br>
+                <label>Jumlah Kursi</label>
+                <input name="jumlah_kursi" type="number" placeholder="Jumlah Kursi" class="form-control">
+                <?= form_error('jumlah_kursi', '<small class="text-danger pl-3">', '</small>'); ?>
                 <br>
                 <hr>
                 <button type="reset" class="btn btn-danger"> <span class="fa fa-times"></span> Reset</button>
@@ -96,7 +97,7 @@
     function pencarian_kode(kd_film, judul_film) {
         $('.kode_film').val(kd_film);
         $('.nama_film').val(judul_film);
-       
+
         $('#listfilm').modal('hide');
         // console.log('checkbox', chekbox1);
     }

@@ -39,13 +39,13 @@ class Auth extends CI_Controller
 			if ($password == $user['password']) {
 				$data = [
 					'username' => $user['username'],
+					'status' => $user['status'],
 				];
 				$this->session->set_userdata($data);
 				redirect('Bioskop');
 			} else {
 				$this->session->unset_userdata('username');
-				$this->session->unset_userdata('role');
-				$this->session->unset_userdata('name');
+				$this->session->unset_userdata('status');
 				$this->session->set_flashdata('password_salah', true);
 				redirect('Auth');
 			}
@@ -58,6 +58,7 @@ class Auth extends CI_Controller
 	public function logout()
     {
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('status');
         $this->session->set_flashdata('logout', true);
         redirect('Auth');
     }
